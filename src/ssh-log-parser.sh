@@ -85,7 +85,7 @@ parse_log() {
         username="${LOG_STR[8]}"
         ;;
     Accepted) 
-        status="Connected" ;
+        status="Connected"
         ip_guest="${LOG_STR[10]}"
         username="${LOG_STR[8]}"
         ;;
@@ -99,7 +99,8 @@ parse_log() {
 }
 
 post_log(){
-  echo '{
+  curl --location --request POST ''${BACKEND_URL}'/log' \
+  --data-raw '{
       "ip_server": "'${1}'",
       "hostname": "'$(hostname)'",
       "ip_guest": "'${2}'",
