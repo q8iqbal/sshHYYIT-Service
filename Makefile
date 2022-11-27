@@ -20,7 +20,7 @@ install: check_root change_permission
 
 	@echo "Copy unit files to $(units_path)";
 	@mkdir -p $(units_path)
-	@cp -r configs $(units_path)
+	@cp -r units $(units_path)
 
 	@echo "Start & Enable services";
 	@systemctl daemon-reload
