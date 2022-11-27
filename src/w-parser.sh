@@ -54,7 +54,7 @@ parse_params() {
       BACKEND_URL="${2-}"
       shift
       ;;
-    -?*) die "Unknown option: $1" ;;
+    -?*) break ;;
     *) break ;;
     esac
     shift

@@ -54,7 +54,7 @@ parse_params() {
       BACKEND_URL="${2-}"
       shift
       ;;
-    -?*) die "Unknown option: $1" ;;
+    -?*) break ;;
     *) break ;;
     esac
     shift
@@ -104,10 +104,10 @@ post_log(){
   --data-raw '{
       "ip_server": '${1}',
       "hostname": '$(hostname)',
-      "ip_guest": '${3}',
-      "username": '${4}',
-      "timestamp": '${5}',
-      "status": '${6}'
+      "ip_guest": '${2}',
+      "username": '${3}',
+      "timestamp": '${4}',
+      "status": '${5}'
   }'
 
     # echo '{
