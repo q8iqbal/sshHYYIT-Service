@@ -97,7 +97,7 @@ parse_log() {
     ip_server=$(ip addr show eth0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1 | xargs)
     hostname="${LOG_STR[3]}"
     timestamp=$(date -u -d "${LOG_STR[0]} ${LOG_STR[1]} ${LOG_STR[2]}" "+%F %T")
-    post_log $ip_server $hostname $ip_guest $username $timestamp $status
+    post_log "$ip_server" "$hostname" "$ip_guest" "$username" "$timestamp" "$status"
 }
 
 post_log(){
