@@ -72,9 +72,9 @@ parse_params() {
 parse_w() {
     W_STR_SLICE=($W_STR)
     W_STR_LEN=${#W_STR_SLICE}
-    USERS_LEN=W_STR_LEN/8
+    USERS_LEN=$W_STR_LEN/8
 
-    echo $USERS_LEN $W_STR_LEN
+    echo $USERS_LEN $W_STR_LEN $W_STR[@]
 
     temp=$(hostname -I)
     temp=($temp)
