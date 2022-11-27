@@ -101,6 +101,16 @@ parse_log() {
 }
 
 post_log(){
+  curl "$BACKEND_URL/log" \
+  -H "Accept: application/json" \
+  -H "Content-Type:application/json" \
+  --data @<(cat <<EOF
+  {
+  "me": "$USER",
+  "something": $(date +%s)
+  }
+  EOF
+  )
   echo '{"ip_server":"'$1'","hostname":"'$(hostname)'","ip_guest": "'$2'","username": "'$3'","timestamp":"'$4'","status": "'$5'"}'
 }
 
