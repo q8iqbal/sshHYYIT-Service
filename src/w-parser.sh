@@ -74,6 +74,8 @@ parse_w() {
     W_STR_LEN=${#W_STR_SLICE}
     USERS_LEN=W_STR_LEN/8
 
+    echo $USERS_LEN $W_STR_LEN
+
     temp=$(hostname -I)
     temp=($temp)
     ip_server=${temp[0]}
