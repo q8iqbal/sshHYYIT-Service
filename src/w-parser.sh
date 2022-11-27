@@ -4,6 +4,8 @@ set -Eeuo pipefail
 trap cleanup SIGINT SIGTERM ERR EXIT
 
 script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
+BACKEND_URL=''
+NO_COLOR=0
 
 usage() {
   cat << EOF # remove the space between << and EOF, this is due to web plugin issue
@@ -45,8 +47,6 @@ die() {
 
 parse_params() {
   # default values of variables set from params
-  BACKEND_URL=''
-  NO_COLOR=0
 
   while :; do
     case "${1-}" in
