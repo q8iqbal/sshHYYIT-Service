@@ -1,0 +1,10 @@
+[Unit]
+Description=Read & parse w output command and send it to backend server
+Reuires=user-telemetry.service
+
+[Service]
+EnvironmentFile=/etc/ssh-telemetry-agent/default.cfg
+OnCalendar=${TELEMETRY_INTERVAL}
+
+[Install]
+WantedBy=timers.target

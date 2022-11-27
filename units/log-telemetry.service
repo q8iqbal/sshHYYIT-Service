@@ -1,0 +1,12 @@
+[Unit]
+Description=Read & parse sshd log from journalctl and send it to backend server
+After=sshd.service
+
+[Service]
+EnvironmentFile=/etc/ssh-telemetry-agent/default.cfg
+ExecStart=journalctl -n 1 -f -u ssh* | xargs -L1 /usr/bin/bash /opt/ssh-telemetry-agent/ssh-log-parser.sh --url $BACKEND_URL:$BACKEND_PORT
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
+RequiredBy=sshd.service
