@@ -1,9 +1,10 @@
 [Unit]
 Description=Read & parse w output command and send it to backend server
+Wants=user-telemetry.timer
 
 [Service]
 EnvironmentFile=/etc/ssh-telemetry-agent/default.cfg
-ExecStart=w | xargs -L1 /usr/bin/bash /opt/ssh-telemetry-agent/w-parser.sh --url $BACKEND_URL:$BACKEND_PORT
+ExecStart=w | xargs /usr/bin/bash /opt/ssh-telemetry-agent/w-parser.sh --url $BACKEND_URL:$BACKEND_PORT
 Type=oneshot
 
 [Install]
