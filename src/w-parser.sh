@@ -75,8 +75,8 @@ parse_w() {
     W_STR_LEN=${#W_STR_SLICE}
     USERS_LEN=W_STR_LEN/8
 
-    ip_server=ip addr show eth0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1 | xargs
-    timestamp=date -u -d "${W_STR_SLICE[3]}" "+%F %T"
+    ip_server=$(ip addr show eth0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1 | xargs)
+    timestamp=$(date -u -d "${W_STR_SLICE[3]}" "+%F %T")
 
     users=()
 
