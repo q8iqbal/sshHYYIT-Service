@@ -101,8 +101,7 @@ parse_log() {
 }
 
 post_log(){
-  curl --location --request POST ''${BACKEND_URL}'/log' \
-  --data-raw '{
+    echo '{
         "ip_server": "'${1}'",
         "hostname": "'${2}'",
         "ip_guest": "'${3}'",
