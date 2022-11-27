@@ -23,8 +23,8 @@ install: check_root change_permission
 	@cp -r configs $(units_path)
 
 	@echo "Start & Enable services";
-	@systemctl enable --now $(services)
 	@systemctl daemon-reload
+	@systemctl enable --now $(services)
 
 uninstall: check_root
 	@echo "Stop & Disable services"
