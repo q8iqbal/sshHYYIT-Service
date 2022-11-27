@@ -93,7 +93,9 @@ parse_log() {
     *) exit ;;
     esac
 
-    ip_server=${($(hostname -I))[0]}
+    temp=$(hostname -I)
+    temp=($temp)
+    ip_server=${temp[0]}
     timestamp=$(date -u -d "${LOG_STR[0]} ${LOG_STR[1]} ${LOG_STR[2]}" +"%F %T")
     post_log "$ip_server" "$ip_guest" "$username" "$timestamp" "$status"
 }
