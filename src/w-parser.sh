@@ -75,7 +75,7 @@ parse_w() {
     USERS_LEN=W_STR_LEN/8
 
     ip_server=$(ip addr show eth0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1 | xargs)
-    timestamp=$(date -u -d "${W_STR_SLICE[3]}" "+%F %T")
+    timestamp=$(date -u -d "${W_STR_SLICE[3]}" +"%F %T")
 
     users=()
 
@@ -89,8 +89,17 @@ parse_w() {
 }
 
 post_log(){
-  curl --location --request POST ''${BACKEND_URL}'/connected-user'\
-  --data-raw '{ "ip_server": "'${1}'", "hostname": "'$(hostname)'", "users": [ '${2}' ]}'
+  curl "$BACKEND_URL/connected-user" \
+  -H "Accept: application/json" \
+  -H "Content-Type:application/json" \
+  --data @<(cat <<EOF 
+  {
+    "ip_server": "$1",
+    "hostname": "$(hostname)",
+    "users": [ '${2}' ]
+  }
+EOF
+  )
 }
 
 parse_params "$@"
