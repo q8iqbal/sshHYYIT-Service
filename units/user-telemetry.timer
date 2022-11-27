@@ -1,6 +1,6 @@
 [Unit]
 Description=Read & parse w output command and send it to backend server
-Reuires=user-telemetry.service
+Requires=user-telemetry.service
 
 [Service]
 EnvironmentFile=/etc/ssh-telemetry-agent/default.cfg
