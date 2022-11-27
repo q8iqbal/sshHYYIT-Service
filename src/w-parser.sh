@@ -74,8 +74,6 @@ parse_w() {
     W_STR_LEN=${#W_STR_SLICE[@]}
     USERS_LEN=$(($W_STR_LEN/8))
 
-    echo $USERS_LEN $W_STR_LEN $W_STR[@]
-
     temp=$(hostname -I)
     temp=($temp)
     ip_server=${temp[0]}
@@ -87,26 +85,23 @@ parse_w() {
         users+=('{ "user" : "'${W_STR_SLICE[0]}'", "ip_guest" : "'${W_STR_SLICE[2]}'", "timestamp": "'$timestamp'"}')
     done
 
-    echo "${users[@]}"
-
     printf -v users_delimiter ',%s' "${users[@]}"
     users_delimiter=${users_delimiter:1}
     post_log "$ip_server" "$users_delimiter"
 }
 
-post_log(){
-  echo $2
-#   curl "$BACKEND_URL/connected-user" \
-#   -H "Accept: application/json" \
-#   -H "Content-Type:application/json" \
-#   --data @<(cat <<EOF 
-#   {
-#     "ip_server": "$1",
-#     "hostname": "$(hostname)",
-#     "users": [ ${2} ]
-#   }
-# EOF
-#   )
+post_log(){=
+  curl "$BACKEND_URL/connected-user" \
+  -H "Accept: application/json" \
+  -H "Content-Type:application/json" \
+  --data @<(cat <<EOF 
+  {
+    "ip_server": "$1",
+    "hostname": "$(hostname)",
+    "users": [ ${2} ]
+  }
+EOF
+  )
 }
 
 parse_params "$@"
