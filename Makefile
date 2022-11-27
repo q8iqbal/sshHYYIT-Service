@@ -12,15 +12,15 @@ default: install
 install: check_root change_permission
 	@echo "Copy bash scripts to $(script_path)";
 	@mkdir -p $(script_path)
-	@cp -r src $(script_path)
+	@cp -r src/* $(script_path)
 
 	@echo "Copy config file to $(config_path)";
 	@mkdir -p $(config_path)
-	@cp -r configs $(config_path)
+	@cp -r configs/* $(config_path)
 
 	@echo "Copy unit files to $(units_path)";
 	@mkdir -p $(units_path)
-	@cp -r units $(units_path)
+	@cp -r units/* $(units_path)
 
 	@echo "Start & Enable services";
 	@systemctl daemon-reload
