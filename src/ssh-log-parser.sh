@@ -75,17 +75,17 @@ parse_log() {
 
     case "${LOG_STR[5]}" in
     Invalid) 
-        status="Failed" 
+        status="failed" 
         ip_guest="${LOG_STR[9]}"
         username="${LOG_STR[7]}"
         ;;
     Failed) 
-        status="Failed"
+        status="failed"
         ip_guest="${LOG_STR[10]}"
         username="${LOG_STR[8]}"
         ;;
     Accepted) 
-        status="Connected"
+        status="connected"
         ip_guest="${LOG_STR[10]}"
         username="${LOG_STR[8]}"
         ;;
@@ -99,7 +99,7 @@ parse_log() {
 }
 
 post_log(){
-  curl --location --request POST ''${BACKEND_URL}'/log' \
+  echo $(curl --location --request POST ''${BACKEND_URL}'/log' \
   --data-raw '{
       "ip_server": "'${1}'",
       "hostname": "'$(hostname)'",
@@ -107,7 +107,7 @@ post_log(){
       "username": "'${3}'",
       "timestamp": "'${4}'",
       "status": "'${5}'"
-  }'
+  }')
 }
 
 parse_params "$@"
