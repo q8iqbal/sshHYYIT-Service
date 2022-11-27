@@ -95,22 +95,30 @@ parse_log() {
     esac
 
     ip_server=$(ip addr show eth0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1 | xargs)
-    hostname="${LOG_STR[3]}"
     timestamp=$(date -u -d "${LOG_STR[0]} ${LOG_STR[1]} ${LOG_STR[2]}" "+%F %T")
-    post_log "$ip_server" "$hostname" "$ip_guest" "$username" "$timestamp" "$status"
+    post_log "$ip_server" "$ip_guest" "$username" "$timestamp" "$status"
 
     return 0
 }
 
 post_log(){
-  curl --location --request POST ''${BACKEND_URL}'/log' \
-  --data-raw '{
-        "ip_server": '${1}',
-        "hostname": '${2}',
-        "ip_guest": '${3}',
-        "username": '${4}',
-        "timestamp": '${5}',
-        "status": '${6}'
+  # curl --location --request POST ''${BACKEND_URL}'/log' \
+  # --data-raw '{
+  #       "ip_server": '${1}',
+  #       "hostname": '$(hostname)',
+  #       "ip_guest": '${3}',
+  #       "username": '${4}',
+  #       "timestamp": '${5}',
+  #       "status": '${6}'
+  #   }'
+
+    echo '{
+        "ip_server": "'${1}'",
+        "hostname": "'$(hostname)'",
+        "ip_guest": "'${2}'",
+        "username": "'${3}'",
+        "timestamp": "'${4}'",
+        "status": "'${5}'"
     }'
 }
 
