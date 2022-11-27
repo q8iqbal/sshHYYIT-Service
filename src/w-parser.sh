@@ -90,7 +90,7 @@ parse_w() {
 }
 
 post_log(){
-  curl --location --request POST ${BACKEND_URL}/connected-user \
+  curl --location --request POST "${BACKEND_URL}/connected-user" \
   --data-raw '{
       "ip_server": "'${1}'",
       "hostname": "'$(hostname)'",
