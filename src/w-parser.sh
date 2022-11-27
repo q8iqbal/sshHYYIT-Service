@@ -65,8 +65,6 @@ parse_params() {
   # check required params and arguments
   [[ -z "${BACKEND_URL}" ]] && die "Missing required parameter: param"
   [[ -z "$W_STR" ]] && die "Missing script arguments"
-
-  return 0
 }
 
 parse_w() {
@@ -85,6 +83,7 @@ parse_w() {
 
     printf -v users_delimiter ',%s' "${users[@]}"
     users_delimiter=${users_delimiter:1}
+    echo $users_delimiter
     post_log "$ip_server" "$users_delimiter"
 }
 
@@ -104,7 +103,7 @@ cat <<EOF
   {
     "ip_server": "$1",
     "hostname": "$(hostname)",
-    "users": [ '${2}' ]
+    "users": [ ${2} ]
   }
 EOF
 }
