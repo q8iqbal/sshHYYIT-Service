@@ -102,24 +102,24 @@ parse_log() {
 }
 
 post_log(){
-  # curl --location --request POST ''${BACKEND_URL}'/log' \
-  # --data-raw '{
-  #       "ip_server": '${1}',
-  #       "hostname": '$(hostname)',
-  #       "ip_guest": '${3}',
-  #       "username": '${4}',
-  #       "timestamp": '${5}',
-  #       "status": '${6}'
-  #   }'
+  curl --location --request POST ''${BACKEND_URL}'/log' \
+  --data-raw '{
+      "ip_server": '${1}',
+      "hostname": '$(hostname)',
+      "ip_guest": '${3}',
+      "username": '${4}',
+      "timestamp": '${5}',
+      "status": '${6}'
+  }'
 
-    echo '{
-        "ip_server": "'${1}'",
-        "hostname": "'$(hostname)'",
-        "ip_guest": "'${2}'",
-        "username": "'${3}'",
-        "timestamp": "'${4}'",
-        "status": "'${5}'"
-    }'
+    # echo '{
+    #     "ip_server": "'${1}'",
+    #     "hostname": "'$(hostname)'",
+    #     "ip_guest": "'${2}'",
+    #     "username": "'${3}'",
+    #     "timestamp": "'${4}'",
+    #     "status": "'${5}'"
+    # }'
 }
 
 parse_params "$@"

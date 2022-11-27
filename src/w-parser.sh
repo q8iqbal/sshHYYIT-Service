@@ -81,7 +81,7 @@ parse_w() {
     users=()
 
     for ((i=0; i<$USERS_LEN; ++i)); do
-        users+=("{ 'user' : ${W_STR_SLICE[0]}, 'ip_guest' : ${W_STR_SLICE[2]}, 'timestamp': $timestamp}")
+        users+=('{ "user" : "'${W_STR_SLICE[0]}'", "ip_guest" : "'${W_STR_SLICE[2]}'", "timestamp": "'$timestamp'"}')
     done
 
     printf -v users_delimiter ',%s' "${users[@]}"
@@ -92,12 +92,12 @@ parse_w() {
 }
 
 post_log(){
-    curl --location --request POST ''${BACKEND_URL}'/connected-user' \
-    --data-raw '{
-        "ip_server": "'${1}'",
-        "hostname": "'${2}'",
-        "users": [ '${3}' ]
-    }'
+  curl --location --request POST ''${BACKEND_URL}'/connected-user' \
+  --data-raw '{
+      "ip_server": "'${1}'",
+      "hostname": "'${2}'",
+      "users": [ '${3}' ]
+  }'
 }
 
 parse_params "$@"
