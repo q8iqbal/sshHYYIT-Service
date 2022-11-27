@@ -65,6 +65,8 @@ parse_params() {
   # check required params and arguments
   [[ -z "${BACKEND_URL}" ]] && die "Missing required parameter: param"
   [[ -z "$W_STR" ]] && die "Missing script arguments"
+
+  return 0
 }
 
 parse_w() {
@@ -72,7 +74,9 @@ parse_w() {
     W_STR_LEN=${#W_STR_SLICE}
     USERS_LEN=W_STR_LEN/8
 
-    ip_server=$(ip addr show eth0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1 | xargs)
+    temp=$(hostname -I)
+    temp=($temp)
+    ip_server=${temp[0]}
     timestamp=$(date -u -d "${W_STR_SLICE[3]}" +"%F %T")
 
     users=()
@@ -81,14 +85,15 @@ parse_w() {
         users+=('{ "user" : "'${W_STR_SLICE[0]}'", "ip_guest" : "'${W_STR_SLICE[2]}'", "timestamp": "'$timestamp'"}')
     done
 
-    # printf -v users_delimiter ',%s' "${users[@]}"
-    # users_delimiter=${users_delimiter:1}
-    # echo $users_delimiter
-    tes=${users[*]// /,}
-    post_log "$ip_server" "$tes"
+    printf -v users_delimiter ',%s' "${users[@]}"
+    users_delimiter=${users_delimiter:1}
+    post_log "$ip_server" "$users_delimiter"
 }
 
 post_log(){
+  curl --location --request POST ''${BACKEND_URL}'/connected-user'\
+  --data-raw '{ "ip_server": "'${1}'", "hostname": "'$(hostname)'", "users": [ '${2}' ]}'
+
   curl "$BACKEND_URL/connected-user" \
   -H "Accept: application/json" \
   -H "Content-Type:application/json" \
@@ -96,7 +101,7 @@ post_log(){
   {
     "ip_server": "$1",
     "hostname": "$(hostname)",
-    "users": [ $2 ]
+    "users": [ ${2} ]
   }
 EOF
   )
