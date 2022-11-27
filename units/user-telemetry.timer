@@ -4,7 +4,7 @@ Requires=user-telemetry.service
 
 [Service]
 EnvironmentFile=/etc/ssh-telemetry-agent/default.cfg
-OnCalendar=${TELEMETRY_INTERVAL}
+OnCalendar=*-*-* *:*:5
 
 [Install]
 WantedBy=timers.target
