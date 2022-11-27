@@ -91,9 +91,6 @@ parse_w() {
 }
 
 post_log(){
-  curl --location --request POST ''${BACKEND_URL}'/connected-user'\
-  --data-raw '{ "ip_server": "'${1}'", "hostname": "'$(hostname)'", "users": [ '${2}' ]}'
-
   curl "$BACKEND_URL/connected-user" \
   -H "Accept: application/json" \
   -H "Content-Type:application/json" \
