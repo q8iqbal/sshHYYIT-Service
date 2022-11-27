@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 set -Eeuo pipefail
+set -o history
+set -H
 trap cleanup SIGINT SIGTERM ERR EXIT
 
 script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
@@ -100,18 +102,23 @@ parse_log() {
     post_log "$ip_server" "$ip_guest" "$username" "$timestamp" "$status"
 }
 
+
+
 post_log(){
   curl "$BACKEND_URL/log" \
   -H "Accept: application/json" \
   -H "Content-Type:application/json" \
-  --data @<(cat <<EOF
+  --data $(cat <<EOF 
   {
-  "me": "$USER",
-  "something": $(date +%s)
+    "ip_server": "$1",
+    "hostname": "$(hostname)",
+    "ip_guest": "$2",
+    "username": "$3",
+    "timestamp": "$4",
+    "status": "$5"
   }
-  EOF
+EOF
   )
-  echo '{"ip_server":"'$1'","hostname":"'$(hostname)'","ip_guest": "'$2'","username": "'$3'","timestamp":"'$4'","status": "'$5'"}'
 }
 
 parse_params "$@"
