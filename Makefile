@@ -3,7 +3,7 @@ SHELL := /bin/bash
 
 config_path := /etc/ssh-telemetry-agent/
 script_path := /opt/ssh-telemetry-agent/
-units_path := /etc/systemd/system/ssh-telemetry-agent.target.wants/
+units_path := /etc/systemd/system/
 services := log-telemetry.service user-telemetry.timer
 scripts := src/ssh-log-parser.sh src/w-parser.sh
 
@@ -37,7 +37,7 @@ uninstall: check_root
 	@rm -rf $(config_path)
 
 	@echo "Delete unit files to $(units_path)";
-	@rm -rf $(units_path)
+	@rm /etc/systemd/system/log-telemetry.service /etc/systemd/system/user-telemetry.service /etc/systemd/system/user-telemetry.timer
 	@systemctl daemon-reload
 
 check_root:
