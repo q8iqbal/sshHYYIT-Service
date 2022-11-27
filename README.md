@@ -17,3 +17,6 @@
 
 ## 2. How to uninstall
 `# make uninstall`
+
+  curl --location --request POST ''${BACKEND_URL}'/log' \
+  --data-raw
