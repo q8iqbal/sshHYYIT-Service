@@ -47,7 +47,6 @@ die() {
 
 parse_params() {
   # default values of variables set from params
-
   while :; do
     case "${1-}" in
     -h | --help) usage ;;
