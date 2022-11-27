@@ -98,10 +98,13 @@ parse_log() {
     hostname="${LOG_STR[3]}"
     timestamp=$(date -u -d "${LOG_STR[0]} ${LOG_STR[1]} ${LOG_STR[2]}" "+%F %T")
     post_log "$ip_server" "$hostname" "$ip_guest" "$username" "$timestamp" "$status"
+
+    return 0
 }
 
 post_log(){
-    echo '{
+  curl --location --request POST ''${BACKEND_URL}'/log' \
+  --data-raw '{
         "ip_server": "'${1}'",
         "hostname": "'${2}'",
         "ip_guest": "'${3}'",

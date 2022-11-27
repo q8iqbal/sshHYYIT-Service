@@ -86,17 +86,18 @@ parse_w() {
 
     printf -v users_delimiter ',%s' "${users[@]}"
     users_delimiter=${users_delimiter:1}
-    post_log ip_server hostname users_delimiter
+    post_log "$ip_server" hostname "$users_delimiter"
 
     return 0
 }
 
 post_log(){
-    curl --location --request POST $BACKEND_URL'/connected-user' --data-raw "{
-        'ip_server': "$1",
-        'hostname': "$2",
-        'users': [ "$3" ]
-    }"
+    curl --location --request POST ''${BACKEND_URL}'/connected-user' \
+    --data-raw '{
+        "ip_server": '${1}',
+        "hostname": '${2}',
+        "users": [ '${3}' ]
+    }'
 }
 
 parse_params "$@"
