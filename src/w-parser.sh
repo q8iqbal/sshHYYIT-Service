@@ -81,10 +81,11 @@ parse_w() {
         users+=('{ "user" : "'${W_STR_SLICE[0]}'", "ip_guest" : "'${W_STR_SLICE[2]}'", "timestamp": "'$timestamp'"}')
     done
 
-    printf -v users_delimiter ',%s' "${users[@]}"
-    users_delimiter=${users_delimiter:1}
-    echo $users_delimiter
-    post_log "$ip_server" "$users_delimiter"
+    # printf -v users_delimiter ',%s' "${users[@]}"
+    # users_delimiter=${users_delimiter:1}
+    # echo $users_delimiter
+    tes=${users[*]// /,}
+    post_log "$ip_server" "$tes"
 }
 
 post_log(){
