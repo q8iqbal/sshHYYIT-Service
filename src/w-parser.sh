@@ -90,7 +90,7 @@ parse_w() {
     post_log "$ip_server" "$users_delimiter"
 }
 
-post_log(){=
+post_log(){
   curl "$BACKEND_URL/connected-user" \
   -H "Accept: application/json" \
   -H "Content-Type:application/json" \
