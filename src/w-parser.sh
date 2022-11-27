@@ -89,24 +89,17 @@ parse_w() {
 }
 
 post_log(){
-#   curl "$BACKEND_URL/connected-user" \
-#   -H "Accept: application/json" \
-#   -H "Content-Type:application/json" \
-#   --data @<(cat <<EOF 
-#   {
-#     "ip_server": "$1",
-#     "hostname": "$(hostname)",
-#     "users": [ '${2}' ]
-#   }
-# EOF
-#   )
-  cat <<EOF 
+  curl "$BACKEND_URL/connected-user" \
+  -H "Accept: application/json" \
+  -H "Content-Type:application/json" \
+  --data @<(cat <<EOF 
   {
     "ip_server": "$1",
     "hostname": "$(hostname)",
-    "users": [ ${2} ]
+    "users": [ $2 ]
   }
 EOF
+  )
 }
 
 parse_params "$@"
