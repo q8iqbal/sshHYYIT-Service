@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 set -Eeuo pipefail
-set -o history
-set -H
 trap cleanup SIGINT SIGTERM ERR EXIT
 
 script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
@@ -108,7 +106,7 @@ post_log(){
   curl "$BACKEND_URL/log" \
   -H "Accept: application/json" \
   -H "Content-Type:application/json" \
-  --data $(cat <<EOF 
+  --data @<(cat <<EOF 
   {
     "ip_server": "$1",
     "hostname": "$(hostname)",
