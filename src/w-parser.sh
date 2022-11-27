@@ -100,7 +100,7 @@ post_log(){
 #   }
 # EOF
 #   )
-cat <<EOF 
+  cat <<EOF 
   {
     "ip_server": "$1",
     "hostname": "$(hostname)",
