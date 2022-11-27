@@ -102,12 +102,12 @@ parse_log() {
 
 post_log(){
     echo '{
-        "ip_server": "'$(1)'",
-        "hostname": "'$(2)'",
-        "ip_guest": "'$(3)'",
-        "username": "'$(4)'",
-        "timestamp": "'$(5)'",
-        "status": "'$(6)'"
+        "ip_server": "'$($1)'",
+        "hostname": "'$($2)'",
+        "ip_guest": "'$($3)'",
+        "username": "'$($4)'",
+        "timestamp": "'$($4)'",
+        "status": "'$($6)'"
     }'
 }
 
